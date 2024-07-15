@@ -30,11 +30,3 @@ def main():
 if __name__ == "__main__":
     main()
   
-*/Enter the number of vertices: 3
-Enter vertex and its edges (vertex1 weight1 vertex2 weight2 ...): A B 1 C 4
-Enter vertex and its edges (vertex1 weight1 vertex2 weight2 ...): B C 2
-Enter vertex and its edges (vertex1 weight1 vertex2 weight2 ...): C A 3
-Enter the start vertex: A
-A 0
-B 1
-C 3/*
