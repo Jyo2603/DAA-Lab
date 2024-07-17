@@ -37,7 +37,30 @@ def main():
     distances = dijkstra(graph, start_vertex)
     
     for vertex, distance in distances.items():
-        print(f"{vertex} {distance}")
+        print(vertex, distance)
 
 if __name__ == "__main__":
     main()
+
+//ALGORITHM
+// function Dijkstra(graph, start):
+//    create a priority queue
+//    create a distance map and set all distances to infinity except for the start vertex which is set to 0
+    
+//    add start vertex to priority queue with distance 0
+    
+//    while priority queue is not empty:
+//        current_vertex, current_distance = priority queue.pop()
+        
+//        if current_distance > distance[current_vertex]:
+//            continue
+        
+//        for each neighbor, weight in graph[current_vertex]:
+//            distance = current_distance + weight
+            
+//            if distance < distance[neighbor]:
+//                distance[neighbor] = distance
+//                priority queue.add(neighbor, distance)
+    
+//    return distance//
+
