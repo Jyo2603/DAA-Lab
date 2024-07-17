@@ -18,7 +18,7 @@ end = list(map(int, input("Enter end times: ").split()))
 weight = list(map(int, input("Enter weights: ").split()))
 
 result, jobs = weighted_interval_scheduling(start, end, weight)
-print("start time\tend time\tweight")
+print("start time\t   end time\t   weight")
 for job in jobs:
     print(job[0], "\t\t", job[1], "\t\t", job[2])
 print("Maximum weight of non-overlapping intervals:", result)
