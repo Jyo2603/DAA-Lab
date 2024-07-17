@@ -1,5 +1,5 @@
-def weighted_interval_scheduling(starts, ends, weights):
-    jobs = sorted(zip(starts, ends, weights), key=lambda x: x[1])
+def weighted_interval_scheduling(start, end, weight):
+    jobs = sorted(zip(start, end, weight), key=lambda x: x[1])
     n = len(jobs)
     dp = [0] * (n + 1)
     
@@ -13,11 +13,11 @@ def weighted_interval_scheduling(starts, ends, weights):
     
     return dp[-1], jobs
 
-starts = list(map(int, input("Enter start times: ").split()))
-ends = list(map(int, input("Enter end times: ").split()))
-weights = list(map(int, input("Enter weights: ").split()))
+start = list(map(int, input("Enter start times: ").split()))
+end = list(map(int, input("Enter end times: ").split()))
+weight = list(map(int, input("Enter weights: ").split()))
 
-result, jobs = weighted_interval_scheduling(starts, ends, weights)
+result, jobs = weighted_interval_scheduling(start, end, weight)
 print("start time\tend time\tweight")
 for job in jobs:
     print(job[0], "\t\t", job[1], "\t\t", job[2])
