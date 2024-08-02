@@ -1,16 +1,14 @@
-from collections import deque
-
 def bfs(graph, start):
     # Initialize the visited set and the queue
     visited = set()
-    queue = deque([start])
+    queue = [start]
     
     # Mark the starting node as visited
     visited.add(start)
     
     while queue:
         # Dequeue a node and print it (or process it as needed)
-        node = queue.popleft()
+        node = queue.pop(0)
         print(node)
         
         # Visit all unvisited neighbors and enqueue them
