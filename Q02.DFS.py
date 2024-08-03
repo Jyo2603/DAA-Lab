@@ -1,4 +1,4 @@
-def dfs_matrix(matrix, node, visited=None):
+def dfs(matrix, node, visited=None):
     if visited is None:
         visited = set()
     
@@ -17,4 +17,4 @@ matrix = [list(map(int, input().split())) for _ in range(n)]
 start_node = int(input("Enter the starting node for DFS: "))
 
 print("DFS traversal:")
-dfs_matrix(matrix, start_node)
+dfs(matrix, start_node)
