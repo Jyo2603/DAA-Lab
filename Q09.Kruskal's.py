@@ -33,19 +33,3 @@ for _ in range(num_edges):
 
 mst = kruskal(vertices, edges)
 print("MST:", mst)
-
-'''
-ALGORITHM 
-function Kruskal(graph):
-    mst = []
-    edges = sorted(graph.edges, key=lambda edge: edge.weight)
-    ds = DisjointSet(graph.vertices)
-
-    for edge in edges:
-        u, v, weight = edge
-        if ds.find(u) != ds.find(v):
-            ds.union(u, v)
-            mst.append(edge)
-    
-    return mst
-    '''
