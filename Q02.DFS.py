@@ -1,25 +1,20 @@
-def dfs(graph, start, visited=None):
+def dfs_matrix(matrix, node, visited=None):
     if visited is None:
         visited = set()
     
-    visited.add(start)
-    
-    print(start)
+    visited.add(node)
+    print(node)
 
-    for neighbor in graph[start]:
-        if neighbor not in visited:
-            dfs(graph, neighbor, visited)
+    for i, adjacent in enumerate(matrix[node]):
+        if adjacent and i not in visited:
+            dfs_matrix(matrix, i, visited)
     
     return visited
 
-graph = {}
-n = int(input("Enter the number of nodes: ")) 
-for _ in range(n):
-    node = input("Enter node: ")  
-    edges = input("Enter edges for node " + node + " (space-separated): ").split()
-    graph[node] = [edge for edge in edges]
+n = int(input("Enter the number of nodes: "))
+matrix = [list(map(int, input().split())) for _ in range(n)]
 
-start_node = input("Enter the starting node for DFS: ")
+start_node = int(input("Enter the starting node for DFS: "))
 
 print("DFS traversal:")
-dfs(graph, start_node)
+dfs_matrix(matrix, start_node)
