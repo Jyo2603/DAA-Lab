@@ -1,25 +1,20 @@
-def bfs(graph, start):
+def bfs_matrix(matrix, start):
     visited = set()
-    queue = [start]
-    
-    visited.add(start)
+    queue = [start]  # Using a list as a queue
     
     while queue:
-        node = queue.pop(0)
-        print(node)
-        for neighbor in graph[node]:
-            if neighbor not in visited:
-                visited.add(neighbor)
-                queue.append(neighbor)
+        node = queue.pop(0)  # Dequeue
+        if node not in visited:
+            visited.add(node)
+            print(node)
+            for i, adjacent in enumerate(matrix[node]):
+                if adjacent and i not in visited:
+                    queue.append(i)  # Enqueue
 
-graph = {}
-n = int(input("Enter the number of nodes: "))  
-for _ in range(n):
-    node = input("Enter node: ")  
-    edges = input("Enter edges for node " + node + " (space-separated): ").split()
-    graph[node] = [edge for edge in edges]
+n = int(input("Enter the number of nodes: "))
+matrix = [list(map(int, input().split())) for _ in range(n)]
 
-start_node = input("Enter the starting node for BFS: ")
+start_node = int(input("Enter the starting node for BFS: "))
 
 print("BFS traversal:")
-bfs(graph, start_node)
+bfs_matrix(matrix, start_node)
