@@ -1,20 +1,23 @@
-def bfs_matrix(matrix, start):
-    visited = set()
-    queue = [start]  # Using a list as a queue
-    
+def BFS(arr, start):
+    visited = [False] * len(arr)
+    queue = [start]
+    visited[start] = True
+
     while queue:
-        node = queue.pop(0)  # Dequeue
-        if node not in visited:
-            visited.add(node)
-            print(node)
-            for i, adjacent in enumerate(matrix[node]):
-                if adjacent and i not in visited:
-                    queue.append(i)  # Enqueue
+        node = queue.pop(0)
+        print(node)
+        for neighbor in range(len(arr[node])):
+            if arr[node][neighbor] and not visited[neighbor]:
+                visited[neighbor] = True
+                queue.append(neighbor)
 
-n = int(input("Enter the number of nodes: "))
-matrix = [list(map(int, input().split())) for _ in range(n)]
-
-start_node = int(input("Enter the starting node for BFS: "))
-
+n = int(input("Enter number of vertices: "))
+arr = [[0] * n for _ in range(n)]
+for _ in range(int(input("Enter number of edges: "))):
+    u, v = map(int, input("Enter edge (u, v): ").split())
+    arr[u][v] = arr[v][u] = 1
+print("Adjacency matrix:")
+for row in arr: print(row)
+start = int(input("Enter start node: "))
 print("BFS traversal:")
-bfs_matrix(matrix, start_node)
+BFS(arr, start)
