@@ -13,19 +13,21 @@ def prims_algorithm(graph, start):
 
     return mst
 
-def create_graph():
+def main():
     graph = {}
-    for _ in range(int(input())):
-        u, v, weight = input().split()
-        graph.setdefault(u, []).append((v, int(weight)))
-        graph.setdefault(v, []).append((u, int(weight)))
-    return graph
+    for _ in range(int(input("Number of edges: "))):
+        u, v, w = input("Edge (node1 node2 weight): ").split()
+        w = int(w)
+        graph.setdefault(u, []).append((v, w))
+        graph.setdefault(v, []).append((u, w))
+    
+    start = input("Starting node: ")
+    if start in graph:
+        mst = prims_algorithm(graph, start)
+        for u, v, w in mst:
+            print(f"{v} - {u} with weight {w}")
+    else:
+        print("Starting node not found.")
 
-graph = create_graph()
-start_node = input()
-if start_node in graph:
-    mst = prims_algorithm(graph, start_node)
-    for u, v, w in mst:
-        print(f"{v} - {u} with weight {w}")
-else:
-    print("Starting node not found.")
+if __name__ == "__main__":
+    main()
