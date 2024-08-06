@@ -1,32 +1,27 @@
-def bellman_ford(graph, vertices, src):
+def bellman_ford(edges, vertices, src):
     dist = {v: float('inf') for v in vertices}
     dist[src] = 0
 
     for _ in range(len(vertices) - 1):
-        for u, v, w in graph:
-            if dist[u] != float('inf') and dist[u] + w < dist[v]:
+        for u, v, w in edges:
+            if dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w
 
-    if any(dist[u] != float('inf') and dist[u] + w < dist[v] for u, v, w in graph):
+    if any(dist[u] + w < dist[v] for u, v, w in edges):
         print("Graph contains negative weight cycle")
         return
 
-    print("Vertex Distance from Source")
-    for vertex in vertices:
-        print("{}: {}".format(vertex, dist[vertex]))
+    for v in vertices:
+        print(v, ":", dist[v])
 
 def create_graph():
-    vertices = [input("Vertex {}: ".format(i + 1)) for i in range(int(input("Enter number of vertices: ")))]
-    graph = []
-    for _ in range(int(input("Enter number of edges: "))):
-        u, v, w = input("Edge (u v w): ").split()
-        graph.append((u, v, int(w)))
-    return graph, vertices
+    vertices = [input("Vertex: ") for _ in range(int(input("Number of vertices: ")))]
+    edges = [tuple(input("Edge (u v w): ").split()) for _ in range(int(input("Number of edges: ")))]
+    return edges, vertices
 
-# Example usage
-graph, vertices = create_graph()
+edges, vertices = create_graph()
 src = input("Enter source vertex: ")
 if src in vertices:
-    bellman_ford(graph, vertices, src)
+    bellman_ford(edges, vertices, src)
 else:
     print("Source vertex not found.")
