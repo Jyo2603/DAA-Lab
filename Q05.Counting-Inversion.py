@@ -1,51 +1,46 @@
-def merge_and_count(arr, temp_arr, left, mid, right):
-    i, j, k = left, mid + 1, left
-    inv_count = 0
-    
-    while i <= mid and j <= right:
-        if arr[i] <= arr[j]:
-            temp_arr[k] = arr[i]
+def sort_and_count(L):
+    if len(L) <= 1:
+        return 0, L
+    mid = len(L) // 2
+    left = L[:mid]
+    right = L[mid:]
+    invL, sorted_left = sort_and_count(left)
+    invR, sorted_right = sort_and_count(right)
+    invS, sorted_list = merge_and_count(sorted_left, sorted_right)
+    total = invL + invR + invS
+    return total, sorted_list
+
+def merge_and_count(A, B):
+    merged = []
+    i = inv = 0
+    j = 0
+    while i < len(A) and j < len(B):
+        if A[i] <= B[j]:
+            merged.append(A[i])
             i += 1
         else:
-            temp_arr[k] = arr[j]
-            inv_count += (mid - i + 1)
+            merged.append(B[j])
             j += 1
-        k += 1
+            inv += len(A) - i
+    merged.extend(A[i:])
+    merged.extend(B[j:])
+    return inv, merged
 
-    while i <= mid:
-        temp_arr[k] = arr[i]
-        i += 1
-        k += 1
+users = []
+for i in range(3):
+    print(f"Enter song ranking for user {i+1}: ")
+    user = list(map(int, input().split()))
+    users.append(user)
 
-    while j <= right:
-        temp_arr[k] = arr[j]
-        j += 1
-        k += 1
+invC = sort_and_count(users[1])
+invB = sort_and_count(users[2])
 
-    arr[left:right + 1] = temp_arr[left:right + 1]
-    return inv_count
+print(f"User 2 has {invB[0]} inversions.")
+print(f"User 3 has {invC[0]} inversions.")
 
-def merge_sort_and_count(arr, temp_arr, left, right):
-    inv_count = 0
-    if left < right:
-        mid = (left + right) // 2
-        inv_count += merge_sort_and_count(arr, temp_arr, left, mid)
-        inv_count += merge_sort_and_count(arr, temp_arr, mid + 1, right)
-        inv_count += merge_and_count(arr, temp_arr, left, mid, right)
-    return inv_count
-
-def count_inversions(arr):
-    temp_arr = [0] * len(arr)
-    return merge_sort_and_count(arr, temp_arr, 0, len(arr) - 1)
-
-# User input
-n = int(input("Enter the number of songs: "))
-playlist = []
-
-print("Enter the songs in the playlist (space-separated):")
-playlist = list(map(int, input().split()))
-
-if len(playlist) != n:
-    print("The number of songs provided does not match the number specified.")
+if invC[0] < invB[0]:
+    print("User 3 has similar taste to user 1")
+elif invB[0] < invC[0]:
+    print("User 2 has similar taste to user 1")
 else:
-    print("Number of inversions are:", count_inversions(playlist))
+    print("All users have similar taste.")
