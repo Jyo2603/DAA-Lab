@@ -1,33 +1,19 @@
-from itertools import permutations
-
-def calculate_path_length(path, matrix):
-    """Calculate the total length of a path."""
-    return sum(matrix[path[i]][path[i + 1]] for i in range(len(path) - 1)) + matrix[path[-1]][path[0]]
-
 def tsp_bruteforce(matrix):
-    """Solve the TSP using brute force."""
+    def visit(city, visited, current_length):
+        if len(visited) == len(matrix):
+            return current_length + matrix[city][0]
+        min_length = float('inf')
+        for next_city in range(len(matrix)):
+            if next_city not in visited:
+                next_length = current_length + matrix[city][next_city]
+                min_length = min(min_length, visit(next_city, visited | {next_city}, next_length))
+        return min_length
+
     n = len(matrix)
-    cities = list(range(n))
-    min_length = float('inf')
-    best_path = None
-    
-    for perm in permutations(cities):
-        length = calculate_path_length(perm, matrix)
-        if length < min_length:
-            min_length = length
-            best_path = perm
-            
-    return best_path, min_length
+    return visit(0, {0}, 0)
 
-def get_input_matrix():
-    """Get distance matrix from user input."""
-    n = int(input("Number of cities: "))
-    print("Enter distance matrix:")
-    matrix = [list(map(int, input().split())) for _ in range(n)]
-    return matrix
-
-# Main execution
-matrix = get_input_matrix()
-path, length = tsp_bruteforce(matrix)
-print("Best path:", path)
+# Input handling
+n = int(input("Number of cities: "))
+matrix = [list(map(int, input().split())) for _ in range(n)]
+length = tsp_bruteforce(matrix)
 print("Minimum length:", length)
