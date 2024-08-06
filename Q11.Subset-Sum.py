@@ -14,8 +14,8 @@ def find_subsets(nums, target):
     return results
 
 # Input handling
-nums = list(map(int, input().split()))
-target = int(input())
+nums = list(map(int, input(:Enter numbers: ).split()))
+target = int(input(Enter target sum: ))
 
 subsets = find_subsets(nums, target)
 if subsets:
