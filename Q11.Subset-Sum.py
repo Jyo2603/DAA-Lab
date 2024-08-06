@@ -1,30 +1,26 @@
-def subset_sum(nums, target):
-    k = [False] * (target + 1)
-    k[0] = True
-    parent = [-1] * (target + 1)
+def find_subsets(nums, target):
+    def backtrack(start, target, path):
+        if target == 0:
+            results.append(path[:])
+            return
+        for i in range(start, len(nums)):
+            if target >= nums[i]:
+                path.append(nums[i])
+                backtrack(i + 1, target - nums[i], path)
+                path.pop()
     
-    for i, num in enumerate(nums):
-        for j in range(target, num - 1, -1):
-            if k[j - num]:
-                k[j] = True
-                parent[j] = i
-
-    if not k[target]:
-        return False, []
-
-    subset = []
-    while target > 0:
-        idx = parent[target]
-        subset.append(nums[idx])
-        target -= nums[idx]
-    return True, subset
+    results = []
+    backtrack(0, target, [])
+    return results
 
 # Input handling
-nums = list(map(int, input("Enter the numbers: ").split()))
-target = int(input("Enter the target sum: "))
+nums = list(map(int, input().split()))
+target = int(input())
 
-exists, subset = subset_sum(nums, target)
-if exists:
-    print("Subset with the given sum exists:", subset)
+subsets = find_subsets(nums, target)
+if subsets:
+    print("Subsets with the given sum:")
+    for subset in subsets:
+        print(subset)
 else:
-    print("Subset with the given sum does not exist")
+    print("No subset with the given sum exists")
